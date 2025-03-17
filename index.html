@@ -1,197 +1,220 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet" />
-    <script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
-    <style>
-      body {
-        padding: 15px;
-        background-color: black;
-        color: white;
-        font-size: 15px;
-        font-family: Arial, sans-serif;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-      }
-      .icon-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 60vw;
-      }
-      h2 Text:first-child {
-        color: white;
-      }
-      h2 Text:last-child {
-        display: none;
-        font-size: 35px;
-        color: red;
-      }
-      #bullet {
-        animation: blink 2s infinite;
-      }
-      @keyframes blink {
-        50% {
-          opacity: 0;
-        }
-      }
-      img {
-        width: 50px;
-        transition: width 0.4s;
-        opacity: 0.4;
-      }
-      img.selected {
-        width: 80px;
-        opacity: 1;
-      }
-      .link {
-        color: white;
-        text-decoration: none;
-        line-height: 1.8;
-        opacity: 0.4;
-      }
-      .my-heading {
-        text-align: center;
-      }
-      .player-container {
-        display: flex;
-        justify-content: space-around;
-        width: 60vw;
-        margin: 0 auto;
-      }
-      #myPlayer1,
-      #myPlayer2 {
-        display: none;
-        width: 30vw;
-        height: 17vw;
-      }
-      #closeFrame {
-        display: none;
-      }
-      .video-js .vjs-control-bar {
-        height: 0px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="icon-container">
-      <a style="color:#33FF6E;" onclick="loadChannel('qkihgakk.ss')">
-        <img src="" width="50" onclick="selectImage(this)">
-      </a>
-       
-       
-      <a style="color:#33FF6E;" onclick="loadChannel('cnbc.usa.us')">
-        <img src="" width="50" onclick="selectImage(this)">
-      </a>
-       
-       
-      <a style="color:#33FF6E;" onclick="loadChannel('msnbc.usa.us')">
-        <img src="" width="50" onclick="selectImage(this)">
-      </a>
-       
-       
-      <a style="color:#33FF6E;" onclick="loadChannel('cnn.us')">
-        <img src="" width="50" onclick="selectImage(this)">
-      </a>
-       
-       
-      <a style="color:#33FF6E;" onclick="loadChannel('fox.news.us')">
-        <img src="" width="50" onclick="selectImage(this)">
-      </a>
-       
-       
-      <a style="color:#33FF6E;" onclick="loadChannel('bravo.usa.eastern.us')">
-        <img src="" width="50" onclick="selectImage(this)">
-      </a>
-       
-       
-      <a style="color:#33FF6E;" onclick="loadChannel('comedy.central.eastern.us')">
-        <img src="" width="50" onclick="selectImage(this)">
-      </a>
-       
-       
-      <a style="color:#33FF6E;" onclick="loadChannel('eppvjpkd.ss')">
-        <img src="" width="50" onclick="selectImage(this)">
-      </a>
-    </div>
 
-    <h2 class="my-heading">
-      <Text id="closeFrame" onclick="closeFrame()"> Live</Text>
-      <Text id="bullet"> •</Text>
-    </h2>
+<head>
+  <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet" />
+  <script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
+  <style>
+    body {
+      padding: 15px;
+      background-color: black;
+      color: white;
+      font-size: 15px;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
 
-    <div class="player-container">
-      <video id="myPlayer1" class="video-js" controls></video>
-      <video id="myPlayer2" class="video-js" controls></video>
-    </div>
+    .icon-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 60vw;
+    }
 
-    <script>
-      var selectedImage = null;
-      var baseUrl3 = 'justina';
-      var baseUrl4 = 'wachter';
-      var baseUrl5 = '@gmail.com';
-      var baseUrl6 = '936';
-      var baseUrl7 = '205';
-      var player1 = videojs('myPlayer1');
-      var player2 = videojs('myPlayer2');
+    h2 Text:first-child {
+      color: white;
+    }
 
-      function selectImage(img) {
-        if (selectedImage) {
-          selectedImage.classList.remove("selected");
-        }
-        img.classList.add("selected");
-        selectedImage = img;
+    h2 Text:last-child {
+      display: none;
+      font-size: 35px;
+      color: red;
+    }
+
+    #bullet {
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
       }
+    }
 
-      function loadChannel(channel) {
-        var url = 'https://starlite.' + 'best/api/stream/' + baseUrl3 + baseUrl4 + baseUrl5 + '/' + baseUrl6 + baseUrl7 + '/livetv.epg/' + channel + '.m3u8';
-        if (url) {
-          player1.src({
-            src: url,
-            type: 'application/x-mpegURL'
-          });
-          player1.play();
-          document.getElementById("myPlayer1").style.display = "block";
-          document.getElementById("bullet").style.display = "inline";
-          document.getElementById("closeFrame").style.display = "inline";
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+    img {
+      width: 50px;
+      transition: width 0.4s;
+      opacity: 0.4;
+    }
+
+    img.selected {
+      width: 80px;
+      opacity: 1;
+    }
+
+    .link {
+      color: white;
+      text-decoration: none;
+      line-height: 1.8;
+      opacity: 0.4;
+    }
+
+    .my-heading {
+      text-align: center;
+    }
+
+    .player-container {
+      display: flex;
+      justify-content: space-around;
+      width: 60vw;
+    }
+
+    #myPlayer1,
+    #myPlayer2 {
+      width: 30vw;
+      height: 17vw;
+    }
+
+    #closeFrame {
+      display: none;
+    }
+
+    .video-js .vjs-control-bar {
+      height: 0px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="icon-container">
+    <a style="color:#33FF6E;" onclick="loadChannel('qkihgakk.ss')">
+      <img src="" width="50" onclick="selectImage(this)">
+    </a>
+    &nbsp;&nbsp;
+    <a style="color:#33FF6E;" onclick="loadChannel('cnbc.usa.us')">
+      <img src="" width="50" onclick="selectImage(this)">
+    </a>
+    &nbsp;&nbsp;
+    <a style="color:#33FF6E;" onclick="loadChannel('msnbc.usa.us')">
+      <img src="" width="50" onclick="selectImage(this)">
+    </a>
+    &nbsp;&nbsp;
+    <a style="color:#33FF6E;" onclick="loadChannel('cnn.us')">
+      <img src="" width="50" onclick="selectImage(this)">
+    </a>
+    &nbsp;&nbsp;
+    <a style="color:#33FF6E;" onclick="loadChannel('fox.news.us')">
+      <img src="" width="50" onclick="selectImage(this)">
+    </a>
+    &nbsp;&nbsp;
+    <a style="color:#33FF6E;" onclick="loadChannel('bravo.usa.eastern.us')">
+      <img src="" width="50" onclick="selectImage(this)">
+    </a>
+    &nbsp;&nbsp;
+    <a style="color:#33FF6E;" onclick="loadChannel('comedy.central.eastern.us')">
+      <img src="" width="50" onclick="selectImage(this)">
+    </a>
+    &nbsp;&nbsp;
+    <a style="color:#33FF6E;" onclick="loadChannel('eppvjpkd.ss')">
+      <img src="" width="50" onclick="selectImage(this)">
+    </a>
+  </div>
+
+  <h2 class="my-heading">
+    <Text id="closeFrame" onclick="closeFrame()"> Live</Text>
+    <Text id="bullet"> •</Text>
+  </h2>
+
+  <button id="toggleAudioButton">Switch Audio</button>
+
+  <div class="player-container">
+    <video id="myPlayer1" class="video-js" controls autoplay></video>
+    <video id="myPlayer2" class="video-js" controls autoplay></video>
+  </div>
+
+  <script>
+    var selectedImage = null;
+    var baseUrl3 = 'justina';
+    var baseUrl4 = 'wachter';
+    var baseUrl5 = '@gmail.com';
+    var baseUrl6 = '936';
+    var baseUrl7 = '205';
+    var player1 = videojs('myPlayer1');
+    var player2 = videojs('myPlayer2');
+    var currentAudioPlayer = 'player1';
+
+    function selectImage(img) {
+      if (selectedImage) {
+        selectedImage.classList.remove("selected");
       }
+      img.classList.add("selected");
+      selectedImage = img;
+    }
 
-      function closeFrame() {
-        player1.pause();
-        player1.src("");
-        document.getElementById("myPlayer1").style.display = "none";
-        document.getElementById("bullet").style.display = "none";
-        document.getElementById("closeFrame").style.display = "none";
-        if (selectedImage) {
-          selectedImage.classList.remove("selected");
-          selectedImage = null;
-        }
-      }
-
-      // Load default channels on page load
-      // Player 1: CNBC
-      loadChannel('cnbc.usa.us');
-
-      // Player 2: Fox News
-      var url2 = 'https://starlite.' + 'best/api/stream/' + baseUrl3 + baseUrl4 + baseUrl5 + '/' + baseUrl6 + baseUrl7 + '/livetv.epg/' + 'fox.news.us' + '.m3u8';
-      player2.src({
-        src: url2,
+    function loadChannel(channel) {
+      var url = 'https://starlite.best/api/stream/' + baseUrl3 + baseUrl4 + baseUrl5 + '/' + baseUrl6 + baseUrl7 + '/livetv.epg/' + channel + '.m3u8';
+      player1.src({
+        src: url,
         type: 'application/x-mpegURL'
       });
-      player2.play();
-      document.getElementById("myPlayer2").style.display = "block";
+      player1.play();
+      player1.muted(currentAudioPlayer !== 'player1');
+      document.getElementById("myPlayer1").style.display = "block";
+      document.getElementById("bullet").style.display = "inline";
+      document.getElementById("closeFrame").style.display = "inline";
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-      const channelLinks = document.querySelectorAll('.icon-container a');
-      channelLinks.forEach(link => {
-        const onclickValue = link.getAttribute('onclick');
-        const channelName = onclickValue.match(/loadChannel\('(.*)'\)/)[1];
-        const srcLink = `https://media.starlite.best/${channelName}.png`;
-        const img = link.querySelector('img');
-        img.src = srcLink;
-      });
-    </script>
-  </body>
+    function closeFrame() {
+      player1.pause();
+      player1.src("");
+      document.getElementById("myPlayer1").style.display = "none";
+      document.getElementById("bullet").style.display = "none";
+      document.getElementById("closeFrame").style.display = "none";
+      if (selectedImage) {
+        selectedImage.classList.remove("selected");
+        selectedImage = null;
+      }
+    }
+
+    function toggleAudio() {
+      if (currentAudioPlayer === 'player1') {
+        player1.muted(true);
+        player2.muted(false);
+        currentAudioPlayer = 'player2';
+      } else {
+        player2.muted(true);
+        player1.muted(false);
+        currentAudioPlayer = 'player1';
+      }
+    }
+
+    // Load Fox News into player2
+    var url2 = 'https://starlite.best/api/stream/' + baseUrl3 + baseUrl4 + baseUrl5 + '/' + baseUrl6 + baseUrl7 + '/livetv.epg/fox.news.us.m3u8';
+    player2.src({
+      src: url2,
+      type: 'application/x-mpegURL'
+    });
+    player2.play();
+    player2.muted(true);
+
+    // Load CNBC into player1
+    loadChannel('cnbc.usa.us');
+
+    // Set up toggle audio button
+    document.getElementById('toggleAudioButton').addEventListener('click', toggleAudio);
+
+    const channelLinks = document.querySelectorAll('.icon-container a');
+    channelLinks.forEach(link => {
+      const onclickValue = link.getAttribute('onclick');
+      const channelName = onclickValue.match(/loadChannel\('(.*)'\)/)[1];
+      const srcLink = `https://media.starlite.best/${channelName}.png`;
+      const img = link.querySelector('img');
+      img.src = srcLink;
+    });
+  </script>
+</body>
+
 </html>
