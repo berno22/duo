@@ -69,7 +69,7 @@
       display: flex;
       justify-content: space-around;
       width: 60vw;
-      margin-top: 20px;
+      margin-top: 20px; /* Adds padding below the button */
     }
 
     #myPlayer1,
@@ -78,6 +78,7 @@
       height: 17vw;
     }
 
+    /* Class for active (unmuted) player */
     .active-audio {
       border: 2px solid white;
     }
@@ -91,7 +92,7 @@
     }
 
     #toggleAudioButton {
-      margin-bottom: 20px;
+      margin-bottom: 20px; /* Adds padding above the frames */
     }
   </style>
 </head>
@@ -139,8 +140,8 @@
   <button id="toggleAudioButton">Switch Audio</button>
 
   <div class="player-container">
-    <video id="myPlayer1" class="video-js" controls autoplay muted></video>
-    <video id="myPlayer2" class="video-js" controls autoplay muted></video>
+    <video id="myPlayer1" class="video-js" controls autoplay></video>
+    <video id="myPlayer2" class="video-js" controls autoplay></video>
   </div>
 
   <script>
@@ -150,8 +151,8 @@
     var baseUrl5 = '@gmail.com';
     var baseUrl6 = '936';
     var baseUrl7 = '205';
-    var player1 = videojs('myPlayer1', { muted: true });
-    var player2 = videojs('myPlayer2', { muted: true });
+    var player1 = videojs('myPlayer1');
+    var player2 = videojs('myPlayer2');
     var currentAudioPlayer = 'player1';
 
     function selectImage(img) {
@@ -216,32 +217,23 @@
       }
     }
 
-    // Initialize players when Video.js is ready
-    player1.ready(function() {
-      var url1 = 'https://starlite.best/api/stream/' + baseUrl3 + baseUrl4 + baseUrl5 + '/' + baseUrl6 + baseUrl7 + '/livetv.epg/cnbc.usa.us.m3u8';
-      player1.src({
-        src: url1,
-        type: 'application/x-mpegURL'
-      });
-      player1.play().then(() => {
-        player1.muted(false); // Unmute after playback starts
-      }).catch((error) => {
-        console.log('Player1 Autoplay Error:', error);
-      });
+    // Load Fox News into player2
+    var url2 = 'https://starlite.best/api/stream/' + baseUrl3 + baseUrl4 + baseUrl5 + '/' + baseUrl6 + baseUrl7 + '/livetv.epg/fox.news.us.m3u8';
+    player2.src({
+      src: url2,
+      type: 'application/x-mpegURL'
     });
+    player2.play();
+    player2.muted(true);
 
-    player2.ready(function() {
-      var url2 = 'https://starlite.best/api/stream/' + baseUrl3 + baseUrl4 + baseUrl5 + '/' + baseUrl6 + baseUrl7 + '/livetv.epg/fox.news.us.m3u8';
-      player2.src({
-        src: url2,
-        type: 'application/x-mpegURL'
-      });
-      player2.play().then(() => {
-        player2.muted(true); // Keep muted
-      }).catch((error) => {
-        console.log('Player2 Autoplay Error:', error);
-      });
+    // Load CNBC into player1
+    var url1 = 'https://starlite.best/api/stream/' + baseUrl3 + baseUrl4 + baseUrl5 + '/' + baseUrl6 + baseUrl7 + '/livetv.epg/cnbc.usa.us.m3u8';
+    player1.src({
+      src: url1,
+      type: 'application/x-mpegURL'
     });
+    player1.play();
+    player1.muted(false);
 
     // Initial setup
     document.getElementById("myPlayer1").style.display = "block";
