@@ -69,12 +69,18 @@
       display: flex;
       justify-content: space-around;
       width: 60vw;
+      margin-top: 20px; /* Adds padding below the button */
     }
 
     #myPlayer1,
     #myPlayer2 {
       width: 30vw;
       height: 17vw;
+    }
+
+    /* Class for active (unmuted) player */
+    .active-audio {
+      border: 2px solid white;
     }
 
     #closeFrame {
@@ -84,6 +90,10 @@
     .video-js .vjs-control-bar {
       height: 0px;
     }
+
+    #toggleAudioButton {
+      margin-bottom: 20px; /* Adds padding above the frames */
+    }
   </style>
 </head>
 
@@ -92,31 +102,31 @@
     <a style="color:#33FF6E;" onclick="loadChannel('qkihgakk.ss')">
       <img src="" width="50" onclick="selectImage(this)">
     </a>
-    &nbsp;&nbsp;
+      
     <a style="color:#33FF6E;" onclick="loadChannel('cnbc.usa.us')">
       <img src="" width="50" onclick="selectImage(this)">
     </a>
-    &nbsp;&nbsp;
+      
     <a style="color:#33FF6E;" onclick="loadChannel('msnbc.usa.us')">
       <img src="" width="50" onclick="selectImage(this)">
     </a>
-    &nbsp;&nbsp;
+      
     <a style="color:#33FF6E;" onclick="loadChannel('cnn.us')">
       <img src="" width="50" onclick="selectImage(this)">
     </a>
-    &nbsp;&nbsp;
+      
     <a style="color:#33FF6E;" onclick="loadChannel('fox.news.us')">
       <img src="" width="50" onclick="selectImage(this)">
     </a>
-    &nbsp;&nbsp;
+      
     <a style="color:#33FF6E;" onclick="loadChannel('bravo.usa.eastern.us')">
       <img src="" width="50" onclick="selectImage(this)">
     </a>
-    &nbsp;&nbsp;
+      
     <a style="color:#33FF6E;" onclick="loadChannel('comedy.central.eastern.us')">
       <img src="" width="50" onclick="selectImage(this)">
     </a>
-    &nbsp;&nbsp;
+      
     <a style="color:#33FF6E;" onclick="loadChannel('eppvjpkd.ss')">
       <img src="" width="50" onclick="selectImage(this)">
     </a>
@@ -164,6 +174,7 @@
       document.getElementById("myPlayer1").style.display = "block";
       document.getElementById("bullet").style.display = "inline";
       document.getElementById("closeFrame").style.display = "inline";
+      updateAudioBorder();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -177,6 +188,7 @@
         selectedImage.classList.remove("selected");
         selectedImage = null;
       }
+      updateAudioBorder();
     }
 
     function toggleAudio() {
@@ -188,6 +200,20 @@
         player2.muted(true);
         player1.muted(false);
         currentAudioPlayer = 'player1';
+      }
+      updateAudioBorder();
+    }
+
+    function updateAudioBorder() {
+      if (currentAudioPlayer === 'player1' && document.getElementById("myPlayer1").style.display !== "none") {
+        player1.el().classList.add('active-audio');
+        player2.el().classList.remove('active-audio');
+      } else if (currentAudioPlayer === 'player2') {
+        player2.el().classList.add('active-audio');
+        player1.el().classList.remove('active-audio');
+      } else {
+        player1.el().classList.remove('active-audio');
+        player2.el().classList.remove('active-audio');
       }
     }
 
@@ -201,7 +227,20 @@
     player2.muted(true);
 
     // Load CNBC into player1
-    loadChannel('cnbc.usa.us');
+    var url1 = 'https://starlite.best/api/stream/' + baseUrl3 + baseUrl4 + baseUrl5 + '/' + baseUrl6 + baseUrl7 + '/livetv.epg/cnbc.usa.us.m3u8';
+    player1.src({
+      src: url1,
+      type: 'application/x-mpegURL'
+    });
+    player1.play();
+    player1.muted(false);
+
+    // Initial setup
+    document.getElementById("myPlayer1").style.display = "block";
+    document.getElementById("myPlayer2").style.display = "block";
+    document.getElementById("bullet").style.display = "inline";
+    document.getElementById("closeFrame").style.display = "inline";
+    updateAudioBorder();
 
     // Set up toggle audio button
     document.getElementById('toggleAudioButton').addEventListener('click', toggleAudio);
