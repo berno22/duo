@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet" />
   <script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
@@ -15,121 +14,78 @@
       align-items: center;
       flex-direction: column;
     }
-
     .icon-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 60vw;
     }
-
     h2 Text:first-child {
       color: white;
     }
-
     h2 Text:last-child {
       display: none;
       font-size: 35px;
       color: red;
     }
-
     #bullet {
       animation: blink 2s infinite;
     }
-
     @keyframes blink {
-      50% {
-        opacity: 0;
-      }
+      50% { opacity: 0; }
     }
-
     img {
       width: 50px;
       transition: width 0.4s;
       opacity: 0.4;
     }
-
     img.selected {
       width: 80px;
       opacity: 1;
     }
-
     .link {
       color: white;
       text-decoration: none;
       line-height: 1.8;
       opacity: 0.4;
     }
-
     .my-heading {
       text-align: center;
     }
-
     .player-container {
       display: flex;
       justify-content: space-around;
       width: 60vw;
-      margin-top: 20px; /* Adds padding below the button */
+      margin-top: 20px;
     }
-
-    #myPlayer1,
-    #myPlayer2 {
+    #myPlayer1, #myPlayer2 {
       width: 30vw;
       height: 17vw;
     }
-
-    /* Class for active (unmuted) player */
     .active-audio {
       border: 2px solid white;
     }
-
     #closeFrame {
       display: none;
     }
-
     .video-js .vjs-control-bar {
       height: 0px;
     }
-
     #toggleAudioButton {
-      margin-bottom: 20px; /* Adds padding above the frames */
+      margin-bottom: 20px;
     }
   </style>
 </head>
-
 <body>
   <div class="icon-container">
-    <a style="color:#33FF6E;" onclick="loadChannel('qkihgakk.ss')">
-      <img src="" width="50" onclick="selectImage(this)">
-    </a>
-      
-    <a style="color:#33FF6E;" onclick="loadChannel('cnbc.usa.us')">
-      <img src="" width="50" onclick="selectImage(this)">
-    </a>
-      
-    <a style="color:#33FF6E;" onclick="loadChannel('msnbc.usa.us')">
-      <img src="" width="50" onclick="selectImage(this)">
-    </a>
-      
-    <a style="color:#33FF6E;" onclick="loadChannel('cnn.us')">
-      <img src="" width="50" onclick="selectImage(this)">
-    </a>
-      
-    <a style="color:#33FF6E;" onclick="loadChannel('fox.news.us')">
-      <img src="" width="50" onclick="selectImage(this)">
-    </a>
-      
-    <a style="color:#33FF6E;" onclick="loadChannel('bravo.usa.eastern.us')">
-      <img src="" width="50" onclick="selectImage(this)">
-    </a>
-      
-    <a style="color:#33FF6E;" onclick="loadChannel('comedy.central.eastern.us')">
-      <img src="" width="50" onclick="selectImage(this)">
-    </a>
-      
-    <a style="color:#33FF6E;" onclick="loadChannel('eppvjpkd.ss')">
-      <img src="" width="50" onclick="selectImage(this)">
-    </a>
+    <a style="color:#33FF6E;" onclick="loadChannel('qkihgakk.ss')"><img src="" width="50" onclick="selectImage(this)"></a>  
+    <a style="color:#33FF6E;" onclick="loadChannel('cnbc.usa.us')"><img src="" width="50" onclick="selectImage(this)"></a>  
+    <a style="color:#33FF6E;" onclick="loadChannel('msnbc.usa.us')"><img src="" width="50" onclick="selectImage(this)"></a>  
+    <a style="color:#33FF6E;" onclick="loadChannel('cnn.us')"><img src="" width="50" onclick="selectImage(this)"></a>  
+    <a style="color:#33FF6E;" onclick="loadChannel('fox.news.us')"><img src="" width="50" onclick="selectImage(this)"></a>  
+    <a style="color:#33FF6E;" onclick="loadChannel('bravo.usa.eastern.us')"><img src="" width="50" onclick="selectImage(this)"></a>  
+    <a style="color:#33FF6E;" onclick="loadChannel('comedy.central.eastern.us')"><img src="" width="50" onclick="selectImage(this)"></a>  
+    <a style="color:#33FF6E;" onclick="loadChannel('eppvjpkd.ss')"><img src="" width="50" onclick="selectImage(this)"></a>
   </div>
 
   <h2 class="my-heading">
@@ -140,8 +96,8 @@
   <button id="toggleAudioButton">Switch Audio</button>
 
   <div class="player-container">
-    <video id="myPlayer1" class="video-js" controls autoplay></video>
-    <video id="myPlayer2" class="video-js" controls autoplay></video>
+    <video id="myPlayer1" class="video-js" controls autoplay muted></video>
+    <video id="myPlayer2" class="video-js" controls autoplay muted></video>
   </div>
 
   <script>
@@ -151,8 +107,8 @@
     var baseUrl5 = '@gmail.com';
     var baseUrl6 = '936';
     var baseUrl7 = '205';
-    var player1 = videojs('myPlayer1');
-    var player2 = videojs('myPlayer2');
+    var player1 = videojs('myPlayer1', { autoplay: true, muted: true });
+    var player2 = videojs('myPlayer2', { autoplay: true, muted: true });
     var currentAudioPlayer = 'player1';
 
     function selectImage(img) {
@@ -169,8 +125,13 @@
         src: url,
         type: 'application/x-mpegURL'
       });
-      player1.play();
-      player1.muted(currentAudioPlayer !== 'player1');
+      player1.play().then(() => {
+        if (currentAudioPlayer === 'player1') {
+          player1.muted(false);
+        }
+      }).catch((error) => {
+        console.log('Player1 Play Error:', error);
+      });
       document.getElementById("myPlayer1").style.display = "block";
       document.getElementById("bullet").style.display = "inline";
       document.getElementById("closeFrame").style.display = "inline";
@@ -217,23 +178,32 @@
       }
     }
 
-    // Load Fox News into player2
-    var url2 = 'https://starlite.best/api/stream/' + baseUrl3 + baseUrl4 + baseUrl5 + '/' + baseUrl6 + baseUrl7 + '/livetv.epg/fox.news.us.m3u8';
-    player2.src({
-      src: url2,
-      type: 'application/x-mpegURL'
+    // Initialize players
+    player1.ready(function() {
+      var url1 = 'https://starlite.best/api/stream/' + baseUrl3 + baseUrl4 + baseUrl5 + '/' + baseUrl6 + baseUrl7 + '/livetv.epg/cnbc.usa.us.m3u8';
+      player1.src({
+        src: url1,
+        type: 'application/x-mpegURL'
+      });
+      player1.play().then(() => {
+        player1.muted(false); // Unmute after playback starts
+      }).catch((error) => {
+        console.log('Player1 Autoplay Error:', error);
+      });
     });
-    player2.play();
-    player2.muted(true);
 
-    // Load CNBC into player1
-    var url1 = 'https://starlite.best/api/stream/' + baseUrl3 + baseUrl4 + baseUrl5 + '/' + baseUrl6 + baseUrl7 + '/livetv.epg/cnbc.usa.us.m3u8';
-    player1.src({
-      src: url1,
-      type: 'application/x-mpegURL'
+    player2.ready(function() {
+      var url2 = 'https://starlite.best/api/stream/' + baseUrl3 + baseUrl4 + baseUrl5 + '/' + baseUrl6 + baseUrl7 + '/livetv.epg/fox.news.us.m3u8';
+      player2.src({
+        src: url2,
+        type: 'application/x-mpegURL'
+      });
+      player2.play().then(() => {
+        player2.muted(true); // Keep muted
+      }).catch((error) => {
+        console.log('Player2 Autoplay Error:', error);
+      });
     });
-    player1.play();
-    player1.muted(false);
 
     // Initial setup
     document.getElementById("myPlayer1").style.display = "block";
@@ -255,5 +225,4 @@
     });
   </script>
 </body>
-
 </html>
