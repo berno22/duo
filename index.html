@@ -12,7 +12,7 @@
         font-family: Arial, sans-serif;
         display: flex;
         align-items: center;
-        flex-direction: column
+        flex-direction: column;
       }
       .icon-container {
         display: flex;
@@ -54,69 +54,77 @@
       .my-heading {
         text-align: center;
       }
-      #myPlayer {
-        display: none;
+      .player-container {
+        display: flex;
+        justify-content: space-around;
         width: 60vw;
-        height: 34vw;
+        margin: 0 auto;
+      }
+      #myPlayer1,
+      #myPlayer2 {
+        display: none;
+        width: 30vw;
+        height: 17vw;
       }
       #closeFrame {
         display: none;
       }
       .video-js .vjs-control-bar {
         height: 0px;
-        /*font-size: 20px;*/
       }
     </style>
   </head>
   <body>
-
     <div class="icon-container">
       <a style="color:#33FF6E;" onclick="loadChannel('qkihgakk.ss')">
         <img src="" width="50" onclick="selectImage(this)">
       </a>
-      &nbsp;
-      &nbsp;
+       
+       
       <a style="color:#33FF6E;" onclick="loadChannel('cnbc.usa.us')">
         <img src="" width="50" onclick="selectImage(this)">
       </a>
-      &nbsp;
-      &nbsp;
+       
+       
       <a style="color:#33FF6E;" onclick="loadChannel('msnbc.usa.us')">
         <img src="" width="50" onclick="selectImage(this)">
       </a>
-      &nbsp;
-      &nbsp;
+       
+       
       <a style="color:#33FF6E;" onclick="loadChannel('cnn.us')">
         <img src="" width="50" onclick="selectImage(this)">
       </a>
-      &nbsp;
-      &nbsp;
+       
+       
       <a style="color:#33FF6E;" onclick="loadChannel('fox.news.us')">
         <img src="" width="50" onclick="selectImage(this)">
       </a>
-      &nbsp;
-      &nbsp;
+       
+       
       <a style="color:#33FF6E;" onclick="loadChannel('bravo.usa.eastern.us')">
         <img src="" width="50" onclick="selectImage(this)">
       </a>
-      &nbsp;
-      &nbsp;
+       
+       
       <a style="color:#33FF6E;" onclick="loadChannel('comedy.central.eastern.us')">
         <img src="" width="50" onclick="selectImage(this)">
       </a>
-      &nbsp;
-      &nbsp;
+       
+       
       <a style="color:#33FF6E;" onclick="loadChannel('eppvjpkd.ss')">
         <img src="" width="50" onclick="selectImage(this)">
       </a>
     </div>
 
     <h2 class="my-heading">
-      <Text id="closeFrame" onclick="closeFrame()">  Live</Text>
-      <Text id="bullet"> &bull;</Text>
+      <Text id="closeFrame" onclick="closeFrame()"> Live</Text>
+      <Text id="bullet"> •</Text>
     </h2>
 
-    <video id="myPlayer" class="video-js" controls></video>
+    <div class="player-container">
+      <video id="myPlayer1" class="video-js" controls></video>
+      <video id="myPlayer2" class="video-js" controls></video>
+    </div>
 
     <script>
       var selectedImage = null;
@@ -124,8 +132,9 @@
       var baseUrl4 = 'wachter';
       var baseUrl5 = '@gmail.com';
       var baseUrl6 = '936';
-      var baseUrl7 ='205';
-      var player = videojs('myPlayer');
+      var baseUrl7 = '205';
+      var player1 = videojs('myPlayer1');
+      var player2 = videojs('myPlayer2');
 
       function selectImage(img) {
         if (selectedImage) {
@@ -138,26 +147,22 @@
       function loadChannel(channel) {
         var url = 'https://starlite.' + 'best/api/stream/' + baseUrl3 + baseUrl4 + baseUrl5 + '/' + baseUrl6 + baseUrl7 + '/livetv.epg/' + channel + '.m3u8';
         if (url) {
-          player.src({
+          player1.src({
             src: url,
             type: 'application/x-mpegURL'
           });
-          player.play();
-          document.getElementById("myPlayer").style.display = "block";
+          player1.play();
+          document.getElementById("myPlayer1").style.display = "block";
           document.getElementById("bullet").style.display = "inline";
           document.getElementById("closeFrame").style.display = "inline";
           window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-          player.pause();
-          document.getElementById("myPlayer").style.display = "none";
-          document.getElementById("bullet").style.display = "none";
         }
       }
 
       function closeFrame() {
-        player.pause();
-        player.src("");
-        document.getElementById("myPlayer").style.display = "none";
+        player1.pause();
+        player1.src("");
+        document.getElementById("myPlayer1").style.display = "none";
         document.getElementById("bullet").style.display = "none";
         document.getElementById("closeFrame").style.display = "none";
         if (selectedImage) {
@@ -166,8 +171,20 @@
         }
       }
 
-      const channelLinks = document.querySelectorAll('.icon-container a');
+      // Load default channels on page load
+      // Player 1: CNBC
+      loadChannel('cnbc.usa.us');
 
+      // Player 2: Fox News
+      var url2 = 'https://starlite.' + 'best/api/stream/' + baseUrl3 + baseUrl4 + baseUrl5 + '/' + baseUrl6 + baseUrl7 + '/livetv.epg/' + 'fox.news.us' + '.m3u8';
+      player2.src({
+        src: url2,
+        type: 'application/x-mpegURL'
+      });
+      player2.play();
+      document.getElementById("myPlayer2").style.display = "block";
+
+      const channelLinks = document.querySelectorAll('.icon-container a');
       channelLinks.forEach(link => {
         const onclickValue = link.getAttribute('onclick');
         const channelName = onclickValue.match(/loadChannel\('(.*)'\)/)[1];
@@ -178,4 +195,3 @@
     </script>
   </body>
 </html>
-<!-- https://github.com/videojs/themes/blob/master/city/index.css -->
